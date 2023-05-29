@@ -1,5 +1,5 @@
-import { Product } from '../types'
-import { newID } from '../utils';
+import { Product } from '../models/Product';
+import { newID } from '../Utils';
 
 const presetProducts: Product[] = [
     {

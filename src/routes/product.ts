@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
-import presetProducts from '../temp/presetProducts';
-import { newID } from '../utils';
-import { Product } from '../types';
+import presetProducts from '../temp/PresetProducts';
+import { newID } from '../Utils';
+import { Product } from '../models/Product';
 const router = express.Router();
 
 export const products: Product[] = presetProducts;
@@ -48,10 +48,10 @@ router.put('/:id', (req: Request, res: Response) => {
     }
     const product = products.find((p) => p.id === id);
     if (product) {
-        product.name = name? name : product.name;
-        product.price = price? price : product.price;
-        product.quantity = quantity? quantity : product.quantity;
-        product.image = image? image : product.image;
+        product.name = name ? name : product.name;
+        product.price = price ? price : product.price;
+        product.quantity = quantity ? quantity : product.quantity;
+        product.image = image ? image : product.image;
         res.json(product);
     } else {
         res.status(404).end();

@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import { clients } from './client';
-import { newID } from '../utils';
-import { Order } from '../types';
+import { newID } from '../Utils';
+import { Order } from '../models/Order';
 const router = express.Router();
 
 export const pedidos: Order[] = [];

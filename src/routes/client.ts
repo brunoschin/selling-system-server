@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
-import { newID } from '../utils';
-import { Client } from '../types';
+import { newID } from '../Utils';
+import { Client } from '../models/Client';
 const router = express.Router();
 
 export const clients: Client[] = [];
@@ -43,8 +43,8 @@ router.put('/:id', (req: Request, res: Response) => {
     }
     const client = clients.find((c) => c.id === id);
     if (client) {
-        client.name = name? name : client.name;
-        client.email = email? email : client.email;
+        client.name = name ? name : client.name;
+        client.email = email ? email : client.email;
         res.json(client);
     } else {
         res.status(404).end();
