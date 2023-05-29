@@ -1,19 +1,18 @@
 import express, { Request, Response } from 'express';
-import { newID } from '../Utils';
 import { Client } from '../models/Client';
-const router = express.Router();
 
-export const clients: Client[] = [];
+const router = express.Router();
+const client = new Client();
 
 router.get('/', (_req: Request, res: Response) => {
-    res.json(clients);
+    res.json(client.getAll());
 });
 
 router.get('/:id', (req: Request, res: Response) => {
     const id = req.params.id;
-    const client = clients.find((c) => c.id === id);
-    if (client) {
-        res.json(client);
+    const _client = client.get(id);
+    if (_client) {
+        res.json(_client);
     } else {
         res.status(404).end();
     }
@@ -21,31 +20,20 @@ router.get('/:id', (req: Request, res: Response) => {
 
 router.post('/', (req: Request, res: Response) => {
     const { name, email } = req.body;
-
-    const client: Client = {
-        id: newID(),
-        name,
-        email,
-    };
-
-    clients.push(client);
-
-    res.status(201).json(client);
+    const _client = client.create(name, email);
+    if (_client) {
+        res.status(201).json(_client);
+    } else {
+        res.status(400).end();
+    }
 });
 
 router.put('/:id', (req: Request, res: Response) => {
     const id = req.params.id;
     const { name, email } = req.body;
-    if (!name && !email) {
-        return res.status(400).json({
-            error: 'Informe ao menos um parâmetro',
-        });
-    }
-    const client = clients.find((c) => c.id === id);
-    if (client) {
-        client.name = name ? name : client.name;
-        client.email = email ? email : client.email;
-        res.json(client);
+    const _client = client.update(id, name, email);
+    if (_client) {
+        res.json(_client);
     } else {
         res.status(404).end();
     }
@@ -53,13 +41,11 @@ router.put('/:id', (req: Request, res: Response) => {
 
 router.delete('/:id', (req: Request, res: Response) => {
     const id = req.params.id;
-    const index = clients.findIndex((c) => c.id === id);
-    if (index === -1) {
-        return res.status(404).end();
+    if (client.delete(id)) {
+        res.status(204).end();
+    } {
+        res.status(404).end();
     }
-    clients.splice(index, 1);
-    res.status(204).end();
 });
-
 
 export default router;

@@ -1,8 +1,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import clientRoute from './routes/client';
-import productRoute from './routes/product';
-import orderRoute from './routes/order';
+import clientRoute from './routes/Client';
+import productRoute from './routes/Product';
+import orderRoute from './routes/Order';
 
 const app = express();
 app.use(bodyParser.json());

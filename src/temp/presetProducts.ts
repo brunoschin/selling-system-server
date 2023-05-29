@@ -1,7 +1,7 @@
 import { Product } from '../models/Product';
 import { newID } from '../Utils';
 
-const presetProducts: Product[] = [
+const presetProducts = [
     {
         id: newID(),
         name: 'Cafeteira Elétrica Britânia CP15 15 Cafés Preto',
@@ -40,4 +40,4 @@ const presetProducts: Product[] = [
 
 ]
 
-export default presetProducts
+export default presetProducts as Product[] 
