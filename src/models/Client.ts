@@ -42,17 +42,13 @@ export class Client {
         if (!name && !email) {
             throw new Error('Insira ao menos um campo para atualizar');
         }
-        const client = clients.find((c) => c.id === id);
-        if (client) {
-            client.name = name ? name : client.name;
-            if(email && clients.find((c) => c.email === email)) {
-                throw new Error('Email já cadastrado');
-            }
-            client.email = email ? email : client.email;
-            return client;
-        } else {
-            throw new Error('Cliente não encontrado');
+        const client = new Client().get(id);
+        client.name = name ? name : client.name;
+        if (email && clients.find((c) => c.email === email)) {
+            throw new Error('Email já cadastrado');
         }
+        client.email = email ? email : client.email;
+        return client;
     }
     delete(id: string) {
         const index = clients.findIndex((c) => c.id === id);

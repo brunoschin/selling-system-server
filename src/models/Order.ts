@@ -1,4 +1,6 @@
 import { OrderedItem } from './OrderedItem';
+import { Client } from './Client';
+import { newID } from '../Utils';
 export const orders: Order[] = [];
 
 export class Order {
@@ -12,30 +14,43 @@ export class Order {
     }
 
     get(id: string) {
-        return orders.find((p) => p.id === id);
+        const _order = orders.find((p) => p.id === id);
+        if (_order) {
+            return _order;
+        } else {
+            throw new Error('Pedido não encontrado');
+        }
     }
     getAll() {
         return orders;
     }
     create(clientId: string, items: OrderedItem[]) {
-        const order: Order = new Order(clientId, items);
+        if (!clientId || !items) {
+            throw new Error('Cliente e itens são obrigatórios');
+        }
+        new Client().get(clientId);
+        let id: string;
+        do {
+            id = newID()
+        } while (orders.find((p) => p.id === id));
+        const order: Order = new Order(clientId, items, id);
         orders.push(order);
         return order;
     }
     update(id: string, clientId: string, items: OrderedItem[]) {
-        const order = orders.find((p) => p.id === id);
-        if (order) {
-            order.clientId = clientId ? clientId : order.clientId;
-            order.items = items ? items : order.items;
-            return order;
-        } else {
-            return null;
-        } 
+        if (!clientId && !items) {
+            throw new Error('Insira ao menos um campo para atualizar');
+        }
+        const order = new Order().get(id);
+        if (clientId) new Client().get(clientId);
+        order.clientId = clientId ? clientId : order.clientId;
+        order.items = items ? items : order.items;
+        return order;
     }
     delete(id: string) {
         const index = orders.findIndex((p) => p.id === id);
         if (index === -1) {
-            return false;
+            throw new Error('Pedido não encontrado');
         }
         orders.splice(index, 1);
         return true;

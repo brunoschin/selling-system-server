@@ -18,32 +18,39 @@ export class Product {
     }
 
     get(id: string) {
-        return products.find((c) => c.id === id);
+        const _product = products.find((c) => c.id === id);
+        if (_product) {
+            return _product;
+        } else {
+            throw new Error('Produto não encontrado');
+        }
     }
     getAll() {
         return products;
     }
     create(name: string, price: number, quantity: number, image: string) {
-        const product: Product = new Product(name, price, quantity, image, newID());
-        products.push(product);
-        return product;
+        if (!name || !price || !quantity || !image) {
+            throw new Error('Todos os campos são obrigatórios');
+        }
+        const _product: Product = new Product(name, price, quantity, image, newID());
+        products.push(_product);
+        return _product;
     }
     update(id: string, name: string, price: number, quantity: number, image: string) {
-        const product = products.find((c) => c.id === id);
-        if (product) {
-            product.name = name ? name : product.name;
-            product.price = price ? price : product.price;
-            product.quantity = quantity ? quantity : product.quantity;
-            product.image = image ? image : product.image;
-            return product;
-        } else {
-            return null;
+        if (!name && !price && !quantity && !image) {
+            throw new Error('Insira ao menos um campo para atualizar');
         }
+        const _product = new Product().get(id);
+        _product.name = name ? name : _product.name;
+        _product.price = price ? price : _product.price;
+        _product.quantity = quantity ? quantity : _product.quantity;
+        _product.image = image ? image : _product.image;
+        return _product;
     }
     delete(id: string) {
         const index = products.findIndex((c) => c.id === id);
         if (index === -1) {
-            return false;
+            throw new Error('Produto não encontrado');
         }
         products.splice(index, 1);
         return true;
