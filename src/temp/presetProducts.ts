@@ -37,6 +37,27 @@ const presetProducts = [
         quantity: 14,
         image: 'https://m.media-amazon.com/images/I/410-1m4s+XL._AC_SL1000_.jpg'
     },
+    {
+        id: newID(),
+        name: 'Caneca Geek Nerd No Coffee No Forcee',
+        price: 24.99,
+        quantity: 8,
+        image: 'https://m.media-amazon.com/images/I/81Q3rAxJobL._AC_SL1500_.jpg'
+    },
+    {
+        id: newID(),
+        name: 'Coffee Mais Grãos │ Kit Clássico e Fazendas → 1 Clássico + 1 Chapada de Minas + 1 Mantiqueira de Minas + 1 Cerrado Mineiro │Café Super Especial │ 100% Arábica │ Torra Média │250g x 4',
+        price: 99.90,
+        quantity: 12,
+        image: 'https://m.media-amazon.com/images/I/616Q2kvKGyL._AC_SL1000_.jpg'
+    },
+    {
+        id: newID(),
+        name: 'Coffee Mais │Café Super Especial ARARA em Grãos │100% Arábica │ Torra Média │250g',
+        price: 21.50,
+        quantity: 6,
+        image: 'https://m.media-amazon.com/images/I/61Wb8+dnL2L._AC_SL1500_.jpg'
+    },
 
 ]
 
