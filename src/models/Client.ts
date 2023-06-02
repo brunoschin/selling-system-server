@@ -3,13 +3,9 @@ export const clients: Client[] = [];
 
 export class Client {
     id: string;
-    name: string;
-    email: string;
 
-    constructor(name?: string, email?: string, id?: string) {
+    constructor(id?: string) {
         this.id = id!;
-        this.name = name!;
-        this.email = email!;
     }
 
     get(id: string) {
@@ -23,31 +19,13 @@ export class Client {
     getAll() {
         return clients;
     }
-    create(name: string, email: string) {
-        if (!name || !email) {
-            throw new Error('Nome e email são obrigatórios');
-        }
-        if (clients.find((c) => c.email === email)) {
-            throw new Error('Email já cadastrado');
-        }
+    create() {
         let id: string;
         do {
             id = newID()
         } while (clients.find((c) => c.id === id));
-        const client: Client = new Client(name, email, id);
+        const client: Client = new Client(id);
         clients.push(client);
-        return client;
-    }
-    update(id: string, name: string, email: string) {
-        if (!name && !email) {
-            throw new Error('Insira ao menos um campo para atualizar');
-        }
-        const client = new Client().get(id);
-        client.name = name ? name : client.name;
-        if (email && clients.find((c) => c.email === email)) {
-            throw new Error('Email já cadastrado');
-        }
-        client.email = email ? email : client.email;
         return client;
     }
     delete(id: string) {

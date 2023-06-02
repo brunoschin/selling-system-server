@@ -20,11 +20,12 @@ router.get('/:id', (req: Request, res: Response) => {
 
 router.post('/', (req: Request, res: Response) => {
     const { clientId, items } = req.body;
+    console.log(req.body);
     const _order = order.create(clientId, items);
     if (_order) {
-        return res.status(400).end();
-    }else{
         res.status(201).json(_order);
+    } else {
+        res.status(400).end();
     }
 });
 
