@@ -21,6 +21,14 @@ export class Order {
             throw new Error('Pedido não encontrado');
         }
     }
+    getByClient(id: string) {
+        const _order = orders.map((p) => p.clientId === id && p);
+        if (_order) {
+            return _order;
+        } else {
+            throw new Error('Pedido não encontrado');
+        }
+    }
     getAll() {
         return orders;
     }

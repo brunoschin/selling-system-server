@@ -18,9 +18,18 @@ router.get('/:id', (req: Request, res: Response) => {
     }
 });
 
+router.get('/client/:id', (req: Request, res: Response) => {
+    const id = req.params.id;
+    const _order = order.getByClient(id);
+    if (_order) {
+        res.json(_order);
+    } else {
+        res.status(404).end();
+    }
+});
+
 router.post('/', (req: Request, res: Response) => {
     const { clientId, items } = req.body;
-    console.log(req.body);
     const _order = order.create(clientId, items);
     if (_order) {
         res.status(201).json(_order);

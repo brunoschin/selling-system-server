@@ -19,8 +19,8 @@ router.get('/:id', (req: Request, res: Response) => {
 });
 
 router.post('/', (req: Request, res: Response) => {
-    const { name, price, quantity, image } = req.body;
-    const _product = product.create(name, price, quantity, image);
+    const { name, price, image } = req.body;
+    const _product = product.create(name, price, image);
     if (_product) {
         res.status(201).json(_product);
     } else {
@@ -30,8 +30,8 @@ router.post('/', (req: Request, res: Response) => {
 
 router.put('/:id', (req: Request, res: Response) => {
     const id = req.params.id;
-    const { name, price, quantity, image } = req.body;
-    const _product = product.update(id, name, price, quantity, image);
+    const { name, price, image } = req.body;
+    const _product = product.update(id, name, price, image);
     if (_product) {
         res.json(_product);
     } else {
